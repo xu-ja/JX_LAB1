@@ -1,0 +1,38 @@
+﻿@model CoursesAndStudents
+
+@{ 
+    ViewData["Title"] = "Summary Page";
+    string StudentNames = "";
+}
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Students Enrolled</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Courses)
+        {
+            StudentNames = "";
+            <tr>
+                <td>@item.CourseCode</td>
+                <td>@item.CourseName</td>
+                @foreach(var studentNum in item.EnrolledStudents)
+                {
+                    @foreach(var student in Model.Students)
+                    {
+                        @if(student.StudentNumber.Equals(studentNum))
+                        {
+                            StudentNames = StudentNames + "[" + student.FirstName + " " + student.LastName + "] ";
+                        }
+                    }
+                }
+                <td>@StudentNames</td>
+            </tr>
+        }
+    </tbody>
+</table>

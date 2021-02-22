@@ -1,0 +1,23 @@
+﻿@model CoursesAndStudents
+
+@{
+    ViewData["Title"] = "Drop a Course Step 1";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Select a student to drop a course for.</p>
+<form asp-action="DropStudent" method="post">
+    <div class="form-group">
+        <label>Select a student to drop course for: </label>
+        <select name="students">
+            @foreach (var student in Model.Students)
+            {
+                <option value="@student.StudentNumber">@student.FirstName @student.LastName - @student.StudentNumber</option>
+            }
+        </select>
+    </div>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Select Course to Drop" />
+    </div>
+</form>

@@ -1,0 +1,30 @@
+﻿@model CoursesAndStudents
+
+@{
+    ViewData["Title"] = "Drop a Course Step 2";
+    TempData["sNum"] = ViewBag.sNum;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Select a course to drop.</p>
+<form asp-action="RemoveCourse" method="post">
+    <div class="form-group">
+        <label>Select an enrolled course: </label>
+        <select name="courses">
+            @foreach (var course in Model.Courses)
+            {
+                foreach (var student in course.EnrolledStudents)
+                {
+                    if (student.Equals(ViewBag.sNum))
+                    {
+                        <option value="@course.CourseCode">@course.CourseCode - @course.CourseName</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Drop Course" />
+    </div>
+</form>
